@@ -1,15 +1,68 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, TextInput, View } from "react-native";
 import React from "react";
 import CustomButton from "../components/CustomButton";
 
 export default function GameStartScreen() {
+
+    function resetHandler() {
+
+    }
+
+    function confirmHandler() {
+
+    }
+
   return (
-    <View>
+    <View style={styles.container}>
       <Text>Sayi Tahmin Uygulamasi</Text>
-      <CustomButton>Temizle</CustomButton>
-      <CustomButton>Onayla</CustomButton>
+      <View style={styles.card}>
+        <TextInput style={styles.input} keyboardType="number-pad" maxLength={2} />
+        <View style={styles.buttonsContainer}>
+          <View style={styles.buttonContainer}>
+            <CustomButton onPress={resetHandler} >Temizle</CustomButton>
+          </View>
+          <View style={styles.buttonContainer}>
+            <CustomButton onPress={confirmHandler} >Onayla</CustomButton>
+          </View>
+        </View>
+      </View>
     </View>
   );
 }
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 20,
+  },
+  card: {
+    backgroundColor: "gray",
+    alignItems: "center",
+    justifyContent: "center",
+    padding: 16,
+    marginTop: 20,
+    borderRadius: 20,
+    shadowColor: "black",
+    shadowOffset: { width: 0, height: 2 },
+    shadowRadius: 6,
+    shadowOpacity: 0.8,
+  },
+  input: {
+    borderBottomWidth: 2,
+    borderBottomColor: "yellow",
+    width: 50,
+    height: 50,
+    marginVertical: 10,
+    fontSize: 30,
+    fontWeight: "bold",
+  },
+  buttonsContainer:{
+    flexDirection:'row'
+  },
+  buttonContainer:{
+    flex:1,
+
+  },
+});
