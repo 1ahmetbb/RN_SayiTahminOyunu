@@ -1,28 +1,44 @@
-import { StyleSheet, Text, TextInput, View } from "react-native";
-import React from "react";
+import { Alert, StyleSheet, Text, TextInput, View } from "react-native";
+import React, { useState } from "react";
 import CustomButton from "../components/CustomButton";
 
 export default function GameStartScreen() {
+  const [enteredNumber, setEnteredNumber] = useState("");
 
-    function resetHandler() {
+  function resetHandler() {
+    setEnteredNumber("");
+  }
 
+  function confirmHandler() {
+    const chosenNumber = parseInt(enteredNumber);
+    if (isNaN(chosenNumber) || chosenNumber <= 0 || chosenNumber > 99) {
+      Alert.alert("Gecersiz Sayi", "Sayi 1 ile 99 arasinda olmalidir", [
+        { text: "Tamam", style: "destructive", onPress: resetHandler },
+      ]);
     }
+  }
 
-    function confirmHandler() {
-
-    }
+  function numberHandler(text) {
+    setEnteredNumber(text);
+  }
 
   return (
     <View style={styles.container}>
       <Text>Sayi Tahmin Uygulamasi</Text>
       <View style={styles.card}>
-        <TextInput style={styles.input} keyboardType="number-pad" maxLength={2} />
+        <TextInput
+          style={styles.input}
+          keyboardType="number-pad"
+          maxLength={2}
+          onChangeText={numberHandler}
+          value={enteredNumber}
+        />
         <View style={styles.buttonsContainer}>
           <View style={styles.buttonContainer}>
-            <CustomButton onPress={resetHandler} >Temizle</CustomButton>
+            <CustomButton onPress={resetHandler}>Temizle</CustomButton>
           </View>
           <View style={styles.buttonContainer}>
-            <CustomButton onPress={confirmHandler} >Onayla</CustomButton>
+            <CustomButton onPress={confirmHandler}>Onayla</CustomButton>
           </View>
         </View>
       </View>
@@ -58,11 +74,10 @@ const styles = StyleSheet.create({
     fontSize: 30,
     fontWeight: "bold",
   },
-  buttonsContainer:{
-    flexDirection:'row'
+  buttonsContainer: {
+    flexDirection: "row",
   },
-  buttonContainer:{
-    flex:1,
-
+  buttonContainer: {
+    flex: 1,
   },
 });
