@@ -2,7 +2,7 @@ import { Alert, StyleSheet, Text, TextInput, View } from "react-native";
 import React, { useState } from "react";
 import CustomButton from "../components/CustomButton";
 
-export default function GameStartScreen() {
+export default function GameStartScreen({onSendNumber}) {
   const [enteredNumber, setEnteredNumber] = useState("");
 
   function resetHandler() {
@@ -15,7 +15,9 @@ export default function GameStartScreen() {
       Alert.alert("Gecersiz Sayi", "Sayi 1 ile 99 arasinda olmalidir", [
         { text: "Tamam", style: "destructive", onPress: resetHandler },
       ]);
+      return ;
     }
+    onSendNumber(chosenNumber)
   }
 
   function numberHandler(text) {
