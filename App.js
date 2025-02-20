@@ -3,18 +3,33 @@ import { StyleSheet, Text, View, ImageBackground } from "react-native";
 import GameStartScreen from "./screens/GameStartScreen";
 import { useState } from "react";
 import GameScreen from "./screens/GameScreen";
+import GameOverScreen from "./screens/GameOverScreen";
 
 export default function App() {
   const [userNumber, setUserNumber] = useState(null);
+  const [gameIsOver, setGameIsOver] = useState(true);
+  const [guessCounts, setGuessCounts] = useState(0)
 
   function sendedHendlerNamber(sendedNumber) {
     setUserNumber(sendedNumber);
+    setGameIsOver(false);
+  }
+
+  function gameOverHandler(numberOfGuess) {
+    setGameIsOver(true);
+    setGuessCounts(numberOfGuess)
   }
 
   let screen = <GameStartScreen onSendNumber={sendedHendlerNamber} />;
 
   if (userNumber) {
-    screen = <GameScreen />;
+    screen = (
+      <GameScreen userNumber={userNumber} onGameOver={gameOverHandler} />
+    );
+  }
+
+  if (gameIsOver && userNumber) {
+    screen = <GameOverScreen roundsNumber={guessCounts} userNumber={userNumber}/>;
   }
 
   return (
@@ -39,3 +54,5 @@ const styles = StyleSheet.create({
     opacity: 0.3,
   },
 });
+
+// -baslik icin title componentinin yazimi
