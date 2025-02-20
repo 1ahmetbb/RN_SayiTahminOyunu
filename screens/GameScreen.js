@@ -1,9 +1,10 @@
-import { StyleSheet, Text, View, Alert } from "react-native";
+import { StyleSheet, Text, View, Alert, FlatList } from "react-native";
 import React, { useEffect, useState } from "react";
 import Title from "../components/Title.js";
 import ComputerNumber from "../components/ComputerNumber.js";
 import CustomButton from "../components/CustomButton.js";
 import AntDesign from "@expo/vector-icons/AntDesign";
+import ComputerGuess from "../components/ComputerGuess.js";
 
 let minNumber = 1;
 let maxNumber = 100;
@@ -69,6 +70,18 @@ export default function GameScreen({ userNumber, onGameOver }) {
             <AntDesign name="pluscircle" size={32} color="darkgreen" />
           </CustomButton>
         </View>
+      </View>
+      <View style={{flex:1, marginVertical:10}}>
+        <FlatList
+          data={guessCounts}
+          keyExtractor={(itemData) => itemData}
+          renderItem={(itemData) => (
+            <ComputerGuess
+              roundNumber={guessCounts.length - itemData.index}
+              guess={itemData.item}
+            />
+          )}
+        />
       </View>
     </View>
   );
